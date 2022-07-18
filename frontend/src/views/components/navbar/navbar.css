@@ -1,0 +1,6 @@
+.main-navbar {
+    display: flex;
+    background-color: black;
+    height: 65px;
+    color:white;
+}
