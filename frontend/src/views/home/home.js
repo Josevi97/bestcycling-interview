@@ -36,18 +36,36 @@ class Home extends Component {
                     <hr />
 
                     <div className="profile-info">
-                        <ProfileInfo />
-                        <ProfileInfo />
-                        <ProfileInfo />
+                        <ProfileInfo
+                            value={this.state.data?.profile?.level}
+                            text="NIVEL"/>
+                        <ProfileInfo
+                            value={this.state.data?.profile?.perseverance}
+                            text="CONSTANCIA"/>
+                        <ProfileInfo
+                            value={this.state.data?.profile?.total_points}
+                            text="PUNTOS"/>
                     </div>
 
                     <hr />
 
                     <div className="profile-stats">
-                        <ProfileStats />
-                        <ProfileStats />
-                        <ProfileStats />
-                        <ProfileStats />
+                        <ProfileStats
+                            value={this.state.data?.profile?.stamina_points}
+                            color="yellow"
+                            text="Resistencia"/>
+                        <ProfileStats
+                            value={this.state.data?.profile?.strength_points}
+                            color="red"
+                            text="Fuerza"/>
+                        <ProfileStats
+                            value={this.state.data?.profile?.flexiblity_points}
+                            color="green"
+                            text="Flexibilidad"/>
+                        <ProfileStats
+                            value={this.state.data?.profile?.mind_points}
+                            color="blue"
+                            text="Fuerza"/>
                     </div>
 
                     <hr />

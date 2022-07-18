@@ -11,7 +11,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-size: 16px;
 
-  background-color: #fff
+  background-color: #111
 }
 
 code {
@@ -33,4 +33,20 @@ code {
   border-radius: 5%;
   cursor: pointer;
   text-decoration: none;
+}
+
+.background-color-yellow {
+  background-color: yellow;
+}
+
+.background-color-red {
+  background-color: red;
+}
+
+.background-color-green {
+  background-color: green;
+}
+
+.background-color-blue {
+  background-color: blue;
 }

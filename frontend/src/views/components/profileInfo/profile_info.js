@@ -5,8 +5,8 @@ class ProfileInfo extends Component {
     render() {
         return(
             <div className="profile-info-content">
-                <h1>10</h1>
-                <span>PUNTOS</span>
+                <h1>{this.props.value}</h1>
+                <span>{this.props.text}</span>
             </div>
         );
     }

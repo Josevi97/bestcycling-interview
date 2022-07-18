@@ -2,5 +2,9 @@
     display: flex;
     background-color: black;
     height: 65px;
-    color:white;
+    text-decoration: none;
+}
+
+.main-navbar__logo {
+    color: white;
 }

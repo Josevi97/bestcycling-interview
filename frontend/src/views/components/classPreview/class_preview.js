@@ -1,10 +1,11 @@
 import { Component } from "react";
+import { Link } from "react-router-dom";
 import './class_preview.css';
 
 class ClassPreview extends Component {
     render() {
         return(
-            <div className="class-preview-content">
+            <Link className="class-preview-content" to="/player">
                 <div className="class-preview-header">
                     <span>LOGO</span>
                     <p>12 Ene 2018</p>
@@ -13,7 +14,7 @@ class ClassPreview extends Component {
                     <h3>BC13/Las tres montañas</h3>
                     <span>Lorena Isasi</span>
                 </div>
-            </div>
+            </Link>
         );
     }
 }

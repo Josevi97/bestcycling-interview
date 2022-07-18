@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './views/home/home';
-import List from './views/list/List';
-import Player from './views/player/Player';
+import List from './views/list/list';
+import Player from './views/player/player';
 
 function App() {
   return (
