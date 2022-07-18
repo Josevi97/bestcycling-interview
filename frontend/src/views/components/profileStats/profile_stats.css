@@ -1,0 +1,12 @@
+.profile-stats-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.profile-stats-content h1 {
+    background-color: red;
+    padding: 40px;
+    border-radius: 50%;
+}

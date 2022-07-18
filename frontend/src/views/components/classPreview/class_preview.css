@@ -1,0 +1,16 @@
+.class-preview-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.class-preview-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.class-preview-body {
+    background-color: yellow;
+    padding: 10px;
+}

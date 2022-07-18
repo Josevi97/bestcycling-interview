@@ -5,8 +5,8 @@ class Navbar extends Component {
 
     render() {
         return(
-            <nav class="main-navbar">
-                <div class="wrap">
+            <nav className="main-navbar">
+                <div className="wrap">
                     <span>LOGO</span>
                 </div>
             </nav>

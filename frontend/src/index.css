@@ -9,6 +9,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 16px;
+
+  background-color: #fff
 }
 
 code {
@@ -17,6 +20,17 @@ code {
 }
 
 .wrap {
-  width: 90%;
+  width: 60%;
   margin: auto;
+}
+
+.button-basic {
+  background-color: orange;
+  color: white;
+  border: none;
+  outline: none;
+  padding: 10px 20px;
+  border-radius: 5%;
+  cursor: pointer;
+  text-decoration: none;
 }
