@@ -8,8 +8,8 @@ class ProfileStats extends Component {
     render() {
         return(
             <div className="profile-stats-content">
-                <div className={this.classNames()}><h1>{this.props.value}</h1></div>
-                <span>{this.props.text}</span>
+                <div className={this.classNames()}><h1 className="profile-stats__value color-primary">{this.props.value}</h1></div>
+                <span className="profile-stats__text color-secondary">{this.props.text}</span>
             </div>
         );
     }

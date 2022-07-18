@@ -6,30 +6,52 @@ import Navbar from "../components/navbar/navbar";
 import ProfileInfo from "../components/profileInfo/profile_info";
 import ProfileStats from "../components/profileStats/profile_stats";
 
+import { getData } from "../../api/test_controller";
+
 import './home.css';
 
 class Home extends Component {
 
     state = {
-        data: {}
+        data: {},
+        classes: []
     }
 
     componentDidMount() {
-        axios.get('https://bestcycling-public.s3.eu-west-1.amazonaws.com/api-test/db.json')
-            .then(res => this.setState({data: res.data}));
+        getData((data) => {
+            const trainings_size = data.training_classes.length;
+
+            this.setState({
+                data: data,
+                classes: data.training_classes
+                    .sort((a, b) => b.published > a.published ? 1 : -1)
+                    .slice(trainings_size - 6, trainings_size)
+                    .map(clazz => {
+                        const instructor = data.instructors.filter(instructor => instructor.id === clazz.instructor_id)[0];
+                        clazz.instructor_id = instructor.name;
+
+                        return clazz;
+                    })
+            });
+        });
     }
 
     render() {
-        return(
+        return (
             <div>
                 <Navbar />
 
                 <div className="wrap">
                     <div className="profile-content">
                         <img className="profile-content__avatar" width="250" src={this.state.data?.profile?.avatar} />
-                        <div className="prifle-data">
-                            <h1 className="profile-content__name">{this.state.data?.profile?.name}</h1>
-                            <p><span>Ubicacion: </span> Valencia, Spain</p>
+                        <div className="profile-data">
+                            <h1 className="profile-content__name color-primary">{this.state.data?.profile?.name}</h1>
+                            <p className="profile-content__ubication color-secondary">
+                                <span className="material-symbols-outlined">
+                                    pin_drop
+                                </span>
+                                Valencia, Spain
+                            </p>
                         </div>
                     </div>
 
@@ -38,13 +60,13 @@ class Home extends Component {
                     <div className="profile-info">
                         <ProfileInfo
                             value={this.state.data?.profile?.level}
-                            text="NIVEL"/>
+                            text="NIVEL" />
                         <ProfileInfo
                             value={this.state.data?.profile?.perseverance}
-                            text="CONSTANCIA"/>
+                            text="CONSTANCIA" />
                         <ProfileInfo
                             value={this.state.data?.profile?.total_points}
-                            text="PUNTOS"/>
+                            text="PUNTOS" />
                     </div>
 
                     <hr />
@@ -53,35 +75,32 @@ class Home extends Component {
                         <ProfileStats
                             value={this.state.data?.profile?.stamina_points}
                             color="yellow"
-                            text="Resistencia"/>
+                            text="Resistencia" />
                         <ProfileStats
                             value={this.state.data?.profile?.strength_points}
                             color="red"
-                            text="Fuerza"/>
+                            text="Fuerza" />
                         <ProfileStats
                             value={this.state.data?.profile?.flexiblity_points}
                             color="green"
-                            text="Flexibilidad"/>
+                            text="Flexibilidad" />
                         <ProfileStats
                             value={this.state.data?.profile?.mind_points}
                             color="blue"
-                            text="Fuerza"/>
+                            text="Fuerza" />
                     </div>
 
                     <hr />
 
                     <div className="last-classes-content">
                         <div className="last-classes-header">
-                            <h1>ÚLTIMAS CLASES</h1>
+                            <h1 className="color-primary">ÚLTIMAS CLASES</h1>
                             <Link className="button-basic" to="/list">VER TODAS</Link>
                         </div>
                         <div className="last-classes-body">
-                            <ClassPreview />
-                            <ClassPreview />
-                            <ClassPreview />
-                            <ClassPreview />
-                            <ClassPreview />
-                            <ClassPreview />
+                            {
+                                this.state.classes.map((clazz, index) => <ClassPreview key={index} clazz={clazz} />)
+                            }
                         </div>
                     </div>
                 </div>

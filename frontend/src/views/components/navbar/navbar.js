@@ -8,7 +8,9 @@ class Navbar extends Component {
         return(
             <nav className="main-navbar">
                 <div className="wrap">
-                    <Link to="/"><span className="main-navbar__logo">LOGO</span></Link>
+                    <Link to="/">
+                        <img width="200" src="bestcycling.png" />
+                    </Link>
                 </div>
             </nav>
         );

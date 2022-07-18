@@ -1,10 +1,12 @@
 .profile-content {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 200px;
+    gap: 100px;
 
     padding: 50px;
+}
+
+.profile-data {
+    margin-top: 40px;
 }
 
 .profile-content__avatar {
@@ -13,6 +15,12 @@
 
 .profile-content__name {
     font-size: 3em;
+}
+
+.profile-content__ubication {
+    display: flex;
+    align-items: center;
+    gap: 7px;
 }
 
 .profile-info {
