@@ -6,7 +6,7 @@ import Navbar from "../components/navbar/navbar";
 import ProfileInfo from "../components/profileInfo/profile_info";
 import ProfileStats from "../components/profileStats/profile_stats";
 
-import { getData } from "../../api/test_controller";
+import { getData, findClasses } from "../../api/test_controller";
 
 import './home.css';
 
@@ -18,18 +18,11 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        getData((data) => {
-            this.setState({
-                data: data,
-                classes: data.training_classes
-                    .sort((a, b) => a.published > b.published ? 1 : -1)
-                    .slice(0, 6)
-                    .map(clazz => {
-                        const instructor = data.instructors.filter(instructor => instructor.id === clazz.instructor_id)[0];
-                        clazz.instructor_id = instructor.name;
-
-                        return clazz;
-                    })
+        getData()
+            .then(data => {
+                this.setState({
+                    data: data,
+                    classes: findClasses(data, 6)
             });
         });
     }

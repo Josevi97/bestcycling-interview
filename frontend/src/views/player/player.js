@@ -1,34 +1,52 @@
-import { Component } from "react";
-import { useParams } from "react-router-dom";
-import Navbar from "../components/navbar/navbar";
+import { Component } from 'react';
+import { useNavigate, useParams } from "react-router-dom";
+import { getOne } from '../../api/test_controller';
+import Navbar from '../components/navbar/navbar';
 import './player.css'
 
-function Player() {
+class Player extends Component {
 
-    const { id } = useParams();
+    state = {
+        clazz: {}
+    }
 
-    return (
-        <div>
-            <Navbar />
+    componentDidMount() {
+        getOne(this.props.id)
+            .then(data => this.setState({clazz: data}));
+    }
 
-            <div className="wrap player-content">
-                <div className="player-header">
-                    <div className="player-header__button">
-                        <span className="material-symbols-outlined">
-                            chevron_left
-                        </span>
+    render() {
+        return (
+            <div>
+                <Navbar />
+
+                <div className="wrap player-content">
+                    <div className="player-header">
+                        <button onClick={() => this.props.navigate(-1)} className="player-header__button">
+                            <span className="material-symbols-outlined">
+                                chevron_left
+                            </span>
+                        </button>
+                        <div className="player-details">
+                            <h1>{this.state.clazz.name}</h1>
+                            <span>{this.state.clazz.instructor_id}</span>
+                        </div>
                     </div>
-                    <div className="player-details">
-                        <h1>BC40/Está en ti</h1>
-                        <span>Julio J.</span>
+                    <div className="player-video">
+                        <h1>5</h1>
                     </div>
-                </div>
-                <div className="player-video">
-                    <h1>5</h1>
                 </div>
             </div>
-        </div>
-    );
+        );
+    }
+
 }
 
-export default Player;
+export default function PlayerState() {
+
+    const navigate = useNavigate();
+    const { id } = useParams();
+
+    return <Player navigate={navigate} id={id} />
+
+};

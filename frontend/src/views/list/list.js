@@ -1,7 +1,7 @@
 import { Component } from "react";
 import Navbar from "../components/navbar/navbar";
 import './list.css';
-import { getData } from "../../api/test_controller";
+import { getData, findClasses } from "../../api/test_controller";
 import VideoPreview from "../components/VideoPreview/video_preview";
 
 class List extends Component {
@@ -11,15 +11,10 @@ class List extends Component {
     }
 
     componentDidMount() {
-        getData((data) => {
-            this.setState({
-                classes: data.training_classes
-                    .map(clazz => {
-                        const instructor = data.instructors.filter(instructor => instructor.id === clazz.instructor_id)[0];
-                        clazz.instructor_id = instructor.name;
-
-                        return clazz;
-                    })
+        getData()
+            .then(data => {
+                this.setState({
+                    classes: findClasses(data)
             });
         });
     }
