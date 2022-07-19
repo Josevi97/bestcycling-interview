@@ -1,6 +1,6 @@
 import { Component } from "react";
 import './video_preview.css';
-import { formatDate } from '../../../api/test_controller';
+import { formatDate } from '../../../helpers/date';
 import { Link } from "react-router-dom";
 
 class VideoPreview extends Component {

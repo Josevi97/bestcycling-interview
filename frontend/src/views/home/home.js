@@ -1,4 +1,3 @@
-import axios from "axios";
 import { Component } from "react";
 import { Link } from "react-router-dom";
 import ClassPreview from "../components/classPreview/class_preview";

@@ -1,7 +1,7 @@
 import { Component } from "react";
 import { Link } from "react-router-dom";
 import './class_preview.css';
-import { formatDate } from '../../../api/test_controller';
+import { formatDate } from '../../../helpers/date';
 
 class ClassPreview extends Component {
 
