@@ -12,11 +12,23 @@ class Player extends Component {
             .fill(0)
             .map((value, index) => index === 0 ? 'FIN' : value + index),
         currentCount: undefined,
-        countdown: () => { }
+        countdown: () => { },
+        ids: []
     }
 
     componentDidMount() {
-        getOne(this.props.id)
+        const ids = [...new Set(this.props.id.split('_'))];
+
+        this.setState({ ids: ids });
+        this.loadData(ids[0]);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.state.countdown);
+    }
+
+    loadData(id) {
+        getOne(id)
             .then(data => {
                 this.setState({
                     clazz: data,
@@ -25,20 +37,25 @@ class Player extends Component {
                         if (this.state.currentCount > 0) {
                             this.setState({ currentCount: this.state.currentCount - 1 });
                         } else {
+                            clearInterval(this.state.countdown);
+
                             const data = localStorage.getItem('classes') ? localStorage.getItem('classes') : [];
                             const array = [data];
                             array.push(this.state.clazz.id);
 
                             localStorage.setItem('classes', array);
-                            this.props.navigate(-1);
+
+                            const ids = this.state.ids.splice(1);
+
+                            if (ids.length > 0) {
+                                this.setState({ ids: ids });
+                                this.loadData(ids[0]);
+                            }
+                            else this.props.navigate(-1);
                         }
                     }, 1000)
                 })
             });
-    }
-
-    componentWillUnmount() {
-        clearInterval(this.state.countdown);
     }
 
     render() {
