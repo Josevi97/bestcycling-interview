@@ -7,12 +7,38 @@ import './player.css'
 class Player extends Component {
 
     state = {
-        clazz: {}
+        clazz: {},
+        countValues: new Array(6)
+            .fill(0)
+            .map((value, index) => index === 0 ? 'FIN' : value + index),
+        currentCount: undefined,
+        countdown: () => { }
     }
 
     componentDidMount() {
         getOne(this.props.id)
-            .then(data => this.setState({clazz: data}));
+            .then(data => {
+                this.setState({
+                    clazz: data,
+                    currentCount: 5,
+                    countdown: setInterval(() => {
+                        if (this.state.currentCount > 0) {
+                            this.setState({ currentCount: this.state.currentCount - 1 });
+                        } else {
+                            const data = localStorage.getItem('classes') ? localStorage.getItem('classes') : [];
+                            const array = [data];
+                            array.push(this.state.clazz.id);
+
+                            localStorage.setItem('classes', array);
+                            this.props.navigate(-1);
+                        }
+                    }, 1000)
+                })
+            });
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.state.countdown);
     }
 
     render() {
@@ -33,7 +59,7 @@ class Player extends Component {
                         </div>
                     </div>
                     <div className="player-video">
-                        <h1>5</h1>
+                        <h1>{this.state.countValues[this.state.currentCount]}</h1>
                     </div>
                 </div>
             </div>

@@ -79,3 +79,11 @@ hr {
   border: none;
   border-bottom: 1px solid #333;
 }
+
+.pill {
+  background-color: #ff7600;
+  color: white;
+  padding: 3px 10px 5px 10px;
+  border-radius: 25px;
+  font-size: .9em;
+}

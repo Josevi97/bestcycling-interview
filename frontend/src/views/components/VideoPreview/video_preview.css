@@ -8,6 +8,13 @@
     overflow: hidden;
 }
 
+.video-preview-image__pill {
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 15px;
+    margin-left: 10px;
+}
+
 .video-preview-image img {
     width: 100%;
 }

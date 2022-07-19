@@ -20,6 +20,12 @@ class VideoPreview extends Component {
 
     generateColor = () => this.state.colors[Math.floor(Math.random()*this.state.colors.length)];
 
+    alreadyViewed() {
+        const data = localStorage.getItem('classes');
+
+        return data && data.includes(this.props.clazz.id);
+    }
+
     render() {
         return(
             <Link className="video-preview-card" to={`/${this.props.clazz.id}`}>
@@ -28,6 +34,8 @@ class VideoPreview extends Component {
                         <h3 className="color-primary">{this.props.clazz.name}</h3>
                         <span className="color-secondary-lighter">{this.props.clazz.instructor_id}</span>
                     </div>
+
+                    { this.alreadyViewed() && (<span className="video-preview-image__pill pill">Completada</span>) }
 
                     <img src={this.props.clazz.image} />
                 </div>
