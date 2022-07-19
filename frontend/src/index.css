@@ -51,12 +51,28 @@ code {
   background-color: #1D8CB9;
 }
 
+.background-primary {
+  background-color: white;
+}
+
 .color-primary {
   color: white;
 }
 
+.background-secondary {
+  background-color: gray;
+}
+
 .color-secondary {
   color: gray;
+}
+
+.background-secondary-lighter {
+  background-color: #ccc;
+}
+
+.color-secondary-lighter {
+  color: #ccc;
 }
 
 hr {

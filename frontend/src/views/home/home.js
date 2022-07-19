@@ -19,13 +19,11 @@ class Home extends Component {
 
     componentDidMount() {
         getData((data) => {
-            const trainings_size = data.training_classes.length;
-
             this.setState({
                 data: data,
                 classes: data.training_classes
-                    .sort((a, b) => b.published > a.published ? 1 : -1)
-                    .slice(trainings_size - 6, trainings_size)
+                    .sort((a, b) => a.published > b.published ? 1 : -1)
+                    .slice(0, 6)
                     .map(clazz => {
                         const instructor = data.instructors.filter(instructor => instructor.id === clazz.instructor_id)[0];
                         clazz.instructor_id = instructor.name;
