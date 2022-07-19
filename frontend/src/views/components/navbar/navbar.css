@@ -5,6 +5,12 @@
     text-decoration: none;
 }
 
+.navbar-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .main-navbar__logo {
     color: white;
 }

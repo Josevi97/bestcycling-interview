@@ -1,0 +1,14 @@
+.suscription-option {
+    position: relative;
+    background-color: white;
+    border-radius: 15px;
+    height: 250px;
+}
+
+.suscription-option h1 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #ff7600;
+}
