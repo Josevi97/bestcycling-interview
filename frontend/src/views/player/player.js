@@ -18,24 +18,12 @@ class Player extends Component {
     }
 
     componentDidMount() {
-        getSession()
-            .then(data => {
-                localStorage.setItem('session', JSON.stringify(data));
+        this.loadSession(() => {
+            const ids = [...new Set(this.props.id.split('_'))];
 
-                if (!data || data.suscription === 0) {
-                    this.navigateToSuscription();
-                }
-                else {
-                    const ids = [...new Set(this.props.id.split('_'))];
-
-                    this.setState({ ids: ids });
-                    this.loadData(ids[0]);
-                }
-            })
-            .catch(() => {
-                localStorage.removeItem('session');
-                this.navigateToSuscription();
-            });
+            this.setState({ ids: ids });
+            this.loadData(ids[0]);
+        });
     }
 
     navigateToSuscription() {
@@ -44,6 +32,18 @@ class Player extends Component {
 
     componentWillUnmount() {
         clearInterval(this.state.countdown);
+    }
+
+    loadSession(callback) {
+        getSession()
+            .then(data => {
+                if (!data || data.suscription === 0) {
+                    this.navigateToSuscription();
+                }
+                else callback();
+            })
+            .catch(() => this.navigateToSuscription());
+
     }
 
     loadData(id) {
@@ -67,8 +67,10 @@ class Player extends Component {
                             const ids = this.state.ids.splice(1);
 
                             if (ids.length > 0) {
-                                this.setState({ ids: ids });
-                                this.loadData(ids[0]);
+                                this.loadSession(() => {
+                                    this.setState({ ids: ids });
+                                    this.loadData(ids[0]);
+                                })
                             }
                             else this.props.navigate(-1);
                         }

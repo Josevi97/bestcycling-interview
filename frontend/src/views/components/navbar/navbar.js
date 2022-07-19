@@ -2,6 +2,7 @@ import { Component } from "react";
 import { Link } from "react-router-dom";
 import { getTimeDiff } from "../../../helpers/date";
 import './navbar.css';
+import { getSession } from "../../../api/session_controller";
 
 class Navbar extends Component {
 
@@ -12,29 +13,36 @@ class Navbar extends Component {
     }
 
     componentDidMount() {
-        let session = localStorage.getItem('session');
+        this.getSession();
+    }
 
-        if (session) {
-            session = JSON.parse(session);
-            const diff_time = getTimeDiff(session.expires);
+    getSession() {
+        getSession()
+            .then(data => {
+                if (data) {
+                    const diff_time = getTimeDiff(data.expires);
 
-            this.setState({
-                session: session,
-                currentCount: diff_time,
-                countdown: setInterval(() => {
-                    const diff = getTimeDiff(this.state.session?.expires);
+                    this.setState({
+                        session: data,
+                        currentCount: diff_time,
+                        countdown: setInterval(() => {
+                            const diff = getTimeDiff(this.state.session?.expires);
 
-                    if (diff >= 0) {
-                        this.setState({
-                            currentCount: diff
-                        });
-                    }
-                    else clearInterval(this.state.countdown);
+                            if (diff >= 1) {
+                                this.setState({
+                                    currentCount: diff
+                                });
+                            }
+                            else {
+                                clearInterval(this.state.countdown)
+                                this.getSession();
+                            };
 
-                }, 1000)
+                        }, 1000)
+                    });
+
+                }
             });
-
-        }
     }
 
     componentWillUnmount() {

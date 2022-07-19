@@ -14,12 +14,6 @@ class List extends Component {
     }
 
     componentDidMount() {
-        getSession()
-            .then(data => {
-                localStorage.setItem('session', JSON.stringify(data));
-            })
-            .catch(() => localStorage.removeItem('session'));
-
         getData()
             .then(data => {
                 this.setState({

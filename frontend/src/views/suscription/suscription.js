@@ -17,17 +17,12 @@ class Suscription extends Component {
     componentDidMount() {
         getSession()
             .then(data => {
-                localStorage.setItem('session', JSON.stringify(data));
-
                 if (!data || data.suscription !== 0) {
                     this.navigateToHome();
                 }
                 else this.setState({ session: data });
             })
-            .catch(() => {
-                localStorage.removeItem('session')
-                this.navigateToHome();
-            });
+            .catch(() => this.navigateToHome());
 
     }
 
