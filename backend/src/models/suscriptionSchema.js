@@ -2,7 +2,7 @@ const suscription = {
     type: 'object',
     properties: {
         mins: {
-            type: 'number',
+            type: 'string',
             required: true
         },
         auto_suscribe: {

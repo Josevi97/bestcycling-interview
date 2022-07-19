@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './views/home/home';
 import List from './views/list/list';
 import PlayerState from './views/player/player';
-import Suscription from './views/suscription/suscription';
+import SuscriptionState from './views/suscription/suscription';
 
 function App() {
 
@@ -11,7 +11,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/list" element={<List />} />
-        <Route path="/suscription" element={<Suscription />} />
+        <Route path="/suscription" element={<SuscriptionState />} />
         <Route path="/:id" element={<PlayerState />} />
       </Routes>
     </BrowserRouter>

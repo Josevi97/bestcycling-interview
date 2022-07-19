@@ -4,6 +4,7 @@ import './list.css';
 import { getData, findClasses } from "../../api/test_controller";
 import VideoPreview from "../components/VideoPreview/video_preview";
 import { Link } from "react-router-dom";
+import { getSession } from "../../api/session_controller";
 
 class List extends Component {
 
@@ -13,6 +14,12 @@ class List extends Component {
     }
 
     componentDidMount() {
+        getSession()
+            .then(data => {
+                localStorage.setItem('session', JSON.stringify(data));
+            })
+            .catch(() => localStorage.removeItem('session'));
+
         getData()
             .then(data => {
                 this.setState({

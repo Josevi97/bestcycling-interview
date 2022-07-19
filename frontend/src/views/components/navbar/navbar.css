@@ -14,3 +14,16 @@
 .main-navbar__logo {
     color: white;
 }
+
+.navbar-countdown {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 140px;
+}
+
+.navbar-countdown h4 {
+    position: absolute;
+    right: 0;
+    text-align: right;
+}

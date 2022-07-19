@@ -21,7 +21,7 @@ router.post('/:id', validate({ body: suscriptionSchema }), (req, res) => {
         return;
     }
 
-    if (mins.filter(value => value === req.body.mins).length === 0) {
+    if (mins.filter(value => value === Number(req.body.mins)).length === 0) {
         res.json({ error: 'Suscription time allowed: [1 minute, 5 minutes, 10 minutes]' });
         res.status(400);
 
@@ -29,7 +29,7 @@ router.post('/:id', validate({ body: suscriptionSchema }), (req, res) => {
     }
 
     _accounts[0].suscription = req.body.mins;
-    _accounts[0].expires = suscriptionService.processMins(req.body.mins);
+    _accounts[0].expires = suscriptionService.processMins(Number(req.body.mins));
     _accounts[0].auto_suscribe = req.body.auto_suscribe;
 
     res.json(_accounts[0]);

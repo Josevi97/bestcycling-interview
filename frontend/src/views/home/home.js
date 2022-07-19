@@ -6,6 +6,7 @@ import ProfileInfo from "../components/profileInfo/profile_info";
 import ProfileStats from "../components/profileStats/profile_stats";
 
 import { getData, findClasses } from "../../api/test_controller";
+import { getSession } from "../../api/session_controller";
 
 import './home.css';
 
@@ -17,6 +18,12 @@ class Home extends Component {
     }
 
     componentDidMount() {
+        getSession()
+            .then(data => {
+                localStorage.setItem('session', JSON.stringify(data));
+            })
+            .catch(() => localStorage.removeItem('session'));
+
         getData()
             .then(data => {
                 this.setState({

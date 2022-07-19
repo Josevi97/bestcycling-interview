@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { getOne } from '../../api/test_controller';
 import Navbar from '../components/navbar/navbar';
 import './player.css'
+import { getSession } from "../../api/session_controller";
 
 class Player extends Component {
 
@@ -17,10 +18,28 @@ class Player extends Component {
     }
 
     componentDidMount() {
-        const ids = [...new Set(this.props.id.split('_'))];
+        getSession()
+            .then(data => {
+                localStorage.setItem('session', JSON.stringify(data));
 
-        this.setState({ ids: ids });
-        this.loadData(ids[0]);
+                if (!data || data.suscription === 0) {
+                    this.navigateToSuscription();
+                }
+                else {
+                    const ids = [...new Set(this.props.id.split('_'))];
+
+                    this.setState({ ids: ids });
+                    this.loadData(ids[0]);
+                }
+            })
+            .catch(() => {
+                localStorage.removeItem('session');
+                this.navigateToSuscription();
+            });
+    }
+
+    navigateToSuscription() {
+        this.props.navigate('/suscription');
     }
 
     componentWillUnmount() {

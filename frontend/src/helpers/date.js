@@ -9,3 +9,5 @@ export const formatDate = (seconds) => {
         .join(' ');
 
 }
+
+export const getTimeDiff = (seconds) => seconds <= 0 ? 0 : seconds - Math.floor(new Date().getTime() / 1000);
