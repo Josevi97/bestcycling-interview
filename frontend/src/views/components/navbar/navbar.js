@@ -13,34 +13,27 @@ class Navbar extends Component {
     }
 
     componentDidMount() {
-        this.getSession();
-    }
-
-    getSession() {
         getSession()
             .then(data => {
                 if (data) {
                     const diff_time = getTimeDiff(data.expires);
+                    const set_interval = data?.expires != 0;
+                    const interval = () => {
+                        const diff = getTimeDiff(data?.expires);
+                        this.setState({ currentCount: diff });
+
+                        console.log(diff);
+
+                        if (diff < 1) {
+                            clearInterval(this.state.countdown)
+                        }
+                    }
 
                     this.setState({
                         session: data,
                         currentCount: diff_time,
-                        countdown: setInterval(() => {
-                            const diff = getTimeDiff(this.state.session?.expires);
-
-                            if (diff >= 1) {
-                                this.setState({
-                                    currentCount: diff
-                                });
-                            }
-                            else {
-                                clearInterval(this.state.countdown)
-                                this.getSession();
-                            };
-
-                        }, 1000)
+                        countdown: set_interval ? setInterval(interval, 1000) : () => {}
                     });
-
                 }
             });
     }

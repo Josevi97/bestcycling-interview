@@ -10,4 +10,4 @@ export const formatDate = (seconds) => {
 
 }
 
-export const getTimeDiff = (seconds) => seconds <= 0 ? 0 : seconds - Math.floor(new Date().getTime() / 1000);
+export const getTimeDiff = (seconds) => !seconds || seconds <= 0 ? 0 : seconds - Math.floor(new Date().getTime() / 1000);

@@ -3,6 +3,7 @@
     background-color: white;
     border-radius: 15px;
     height: 250px;
+    cursor: pointer;
 }
 
 .suscription-option h1 {

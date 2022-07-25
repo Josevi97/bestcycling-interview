@@ -38,7 +38,7 @@ class Suscription extends Component {
         createSuscription(this.state.session.id, {
             mins: value,
             auto_suscribe: this.state.checked
-        }).then();
+        }).then(() => this.navigateToHome());
     }
 
     render() {
