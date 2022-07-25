@@ -13,6 +13,10 @@ class Navbar extends Component {
     }
 
     componentDidMount() {
+        this.getSession();
+    }
+
+    getSession() {
         getSession()
             .then(data => {
                 if (data) {
@@ -20,13 +24,14 @@ class Navbar extends Component {
                     const set_interval = data?.expires != 0;
                     const interval = () => {
                         const diff = getTimeDiff(data?.expires);
-                        this.setState({ currentCount: diff });
 
                         console.log(diff);
 
-                        if (diff < 1) {
+                        if (diff < 2) {
                             clearInterval(this.state.countdown)
+                            this.getSession();
                         }
+                        else this.setState({ currentCount: diff });
                     }
 
                     this.setState({

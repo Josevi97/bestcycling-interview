@@ -14,14 +14,15 @@ class Player extends Component {
             .map((value, index) => index === 0 ? 'FIN' : value + index),
         currentCount: undefined,
         countdown: () => { },
-        ids: []
+        ids: [],
+        ready: false
     }
 
     componentDidMount() {
         this.loadSession(() => {
             const ids = [...new Set(this.props.id.split('_'))];
 
-            this.setState({ ids: ids });
+            this.setState({ ids: ids, ready: true });
             this.loadData(ids[0]);
         });
     }
@@ -80,7 +81,7 @@ class Player extends Component {
     }
 
     render() {
-        return (
+        return !this.state.ready ? null : (
             <div>
                 <Navbar />
 

@@ -11,7 +11,8 @@ class Suscription extends Component {
     state = {
         session: undefined,
         checked: false,
-        options: new Array(3).fill(1).map((value, index) => `${index === 0 ? 1 : 5*index}`)
+        options: new Array(3).fill(1).map((value, index) => `${index === 0 ? 1 : 5*index}`),
+        ready: false
     }
 
     componentDidMount() {
@@ -20,7 +21,10 @@ class Suscription extends Component {
                 if (!data || data.suscription !== 0) {
                     this.navigateToHome();
                 }
-                else this.setState({ session: data });
+                else this.setState({
+                    session: data,
+                    ready: true
+                });
             })
             .catch(() => this.navigateToHome());
 
@@ -42,7 +46,7 @@ class Suscription extends Component {
     }
 
     render() {
-        return (
+        return !this.state.ready ? null : (
             <div>
                 <Navbar />
 
