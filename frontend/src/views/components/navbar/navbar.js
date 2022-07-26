@@ -1,84 +1,77 @@
-import { Component } from "react";
+import { Component, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getTimeDiff } from "../../../helpers/date";
 import './navbar.css';
 import { getSession } from "../../../api/session_controller";
 
-class Navbar extends Component {
+export default function Navbar() {
 
-    state = {
-        session: undefined,
-        currentCount: 0,
-        countdown: () => {}
-    }
+    const [session, setSession] = useState(undefined);
+    const [currentCount, setCurrentCount] = useState(0);
 
-    componentDidMount() {
-        this.getSession();
-    }
-
-    getSession() {
+    const get_session = () => {
         getSession()
             .then(data => {
                 if (data) {
                     const diff_time = getTimeDiff(data.expires);
-                    const set_interval = data?.expires != 0;
-                    const interval = () => {
-                        const diff = getTimeDiff(data?.expires);
 
-                        if (diff < 2) {
-                            clearInterval(this.state.countdown)
-                            this.getSession();
-                        }
-                        else this.setState({ currentCount: diff });
-                    }
-
-                    this.setState({
-                        session: data,
-                        currentCount: diff_time,
-                        countdown: set_interval ? setInterval(interval, 1000) : () => {}
-                    });
+                    setSession(data);
+                    setCurrentCount(diff_time);
                 }
             });
     }
 
-    componentWillUnmount() {
-        clearInterval(this.state.countdown);
+    const hasExpired = () => getTimeDiff(session?.expires) <= 0;
+
+    const shouldRenderButton = () => {
+        if (!session) return;
+
+        return hasExpired();
     }
 
-    hasExpired = () => getTimeDiff(this.state.session?.expires) <= 0;
+    const shouldRenderCountdown = () => {
+        if (!session) return;
 
-    shouldRenderButton = () => {
-        if (!this.state.session) return;
-
-        return this.hasExpired();
+        return !hasExpired() && currentCount !== 0;
     }
 
-    shouldRenderCountdown = () => {
-        if (!this.state.session) return;
+    useEffect(() => get_session(), []);
 
-        return !this.hasExpired() && this.state.currentCount !== 0;
-    }
+    useEffect(() => {
+        let interval;
 
-    render() {
-        return (
-            <nav className="main-navbar">
-                <div className="wrap navbar-content">
-                    <Link to="/">
-                        <img width="200" src="bestcycling.png" />
-                    </Link>
-                    {
-                        this.shouldRenderButton() && (<Link className="button-basic" to="/suscription">SUSCRIBETE</Link>)
-                    }
-                    {
-                        this.shouldRenderCountdown() && (
-                            <div className="color-secondary navbar-countdown">SUSCRIPCION <h4 className="color-primary">{this.state.currentCount}</h4></div>
-                        )
-                    }
-                </div>
-            </nav>
-        );
-    }
+        if (session && session?.expires !== 0) {
+            interval = setInterval(() => {
+                const diff = getTimeDiff(session?.expires);
+
+                if (diff < 2) {
+                    clearInterval(interval)
+                    get_session();
+                }
+                else setCurrentCount(diff);
+            }, 1000);
+        }
+
+        return () => clearInterval(interval);
+
+    }, [session, currentCount]);
+
+    return (
+        <nav className="main-navbar">
+            <div className="wrap navbar-content">
+                <Link to="/">
+                    <img width="200" src="bestcycling.png" />
+                </Link>
+                {
+                    shouldRenderButton() && (<Link className="button-basic" to="/suscription">SUSCRIBETE</Link>)
+                }
+                {
+                    shouldRenderCountdown() && (
+                        <div className="color-secondary navbar-countdown">SUSCRIPCION <h4 className="color-primary">{currentCount}</h4></div>
+                    )
+                }
+            </div>
+        </nav>
+    );
 
 }
-
-export default Navbar;

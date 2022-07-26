@@ -11,12 +11,7 @@ export default function VideoPreview({ clazz, onCheckbox }) {
 
     const colors = ['yellow', 'red', 'green', 'blue'];
 
-    useEffect(() => {
-        setLevel(new Array(3).fill(0).map((element, index) => index < this.props.clazz.level ? 1 : 0));
-        setColor(generateColor());
-    }, []);
-
-    const classNames = () => `video-preview-cat background-color-${this.state.color}`;
+    const classNames = () => `video-preview-cat background-color-${color}`;
 
     const generateColor = () => colors[Math.floor(Math.random() * colors.length)];
 
@@ -36,6 +31,11 @@ export default function VideoPreview({ clazz, onCheckbox }) {
     }
 
     const checkboxClassNames = () => `video-preview-image-checkbox ${checked ? 'active' : ''}`;
+
+    useEffect(() => {
+        setLevel(new Array(3).fill(0).map((element, index) => index < clazz.level ? 1 : 0));
+        setColor(generateColor());
+    }, []);
 
     return (
         <Link className="video-preview-card" to={`/${clazz.id}`}>
