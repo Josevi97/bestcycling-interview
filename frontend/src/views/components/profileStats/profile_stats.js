@@ -1,18 +1,14 @@
-import { Component } from "react";
 import './profile_stats.css';
 
-class ProfileStats extends Component {
+export default function ProfileStats({ value, text, color }) {
 
-    classNames = () => `profile-stats-value-background background-color-${this.props.color}`;
+    const classNames = () => `profile-stats-value-background background-color-${color}`;
 
-    render() {
-        return(
-            <div className="profile-stats-content">
-                <div className={this.classNames()}><h1 className="profile-stats__value color-primary">{this.props.value}</h1></div>
-                <span className="profile-stats__text color-secondary">{this.props.text}</span>
-            </div>
-        );
-    }
+    return(
+        <div className="profile-stats-content">
+            <div className={classNames()}><h1 className="profile-stats__value color-primary">{value}</h1></div>
+            <span className="profile-stats__text color-secondary">{text}</span>
+        </div>
+    );
+
 }
-
-export default ProfileStats;

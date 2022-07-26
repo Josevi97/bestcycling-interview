@@ -1,24 +1,20 @@
-import { Component } from "react";
 import { Link } from "react-router-dom";
-import './class_preview.css';
 import { formatDate } from '../../../helpers/date';
+import './class_preview.css';
 
-class ClassPreview extends Component {
+export default function ClassPreview({ clazz }) {
 
-    render() {
-        return(
-            <Link className="class-preview-content" to={`/${this.props.clazz.id}`}>
-                <div className="class-preview-header">
-                    <img width="150" src="bestcycling.png" />
-                    <p className="color-secondary">{formatDate(this.props.clazz.published)}</p>
-                </div>
-                <div className="class-preview-body">
-                    <h3 className="color-primary">{this.props.clazz.name}</h3>
-                    <span className="color-secondary">{this.props.clazz.instructor_id}</span>
-                </div>
-            </Link>
-        );
-    }
+    return(
+        <Link className="class-preview-content" to={`/${clazz.id}`}>
+            <div className="class-preview-header">
+                <img width="150" src="bestcycling.png" />
+                <p className="color-secondary">{formatDate(clazz.published)}</p>
+            </div>
+            <div className="class-preview-body">
+                <h3 className="color-primary">{clazz.name}</h3>
+                <span className="color-secondary">{clazz.instructor_id}</span>
+            </div>
+        </Link>
+    );
+
 }
-
-export default ClassPreview;

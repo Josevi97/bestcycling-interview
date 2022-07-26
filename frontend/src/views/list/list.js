@@ -1,9 +1,9 @@
 import { useState } from "react";
 import Navbar from "../components/navbar/navbar";
-import './list.css';
 import { getData, findClasses } from "../../api/test_controller";
 import VideoPreview from "../components/VideoPreview/video_preview";
 import { Link } from "react-router-dom";
+import './list.css';
 
 export default function List() {
 

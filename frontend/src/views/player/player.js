@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from "react-router-dom";
 import { getOne } from '../../api/test_controller';
 import Navbar from '../components/navbar/navbar';
-import './player.css'
 import { getSession } from "../../api/session_controller";
+import './player.css'
 
 export default function Player() {
 

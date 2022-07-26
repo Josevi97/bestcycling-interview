@@ -1,10 +1,10 @@
 import { useState } from "react";
 import Navbar from "../components/navbar/navbar";
 import SuscriptionOption from "../components/suscriptionOption/suscription_option";
-import './suscription.css';
 import { getSession } from "../../api/session_controller";
 import { useNavigate } from "react-router-dom";
 import { createSuscription } from "../../api/suscription_controller";
+import './suscription.css';
 
 export default function Suscription() {
 
