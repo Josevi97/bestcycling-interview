@@ -25,8 +25,6 @@ class Navbar extends Component {
                     const interval = () => {
                         const diff = getTimeDiff(data?.expires);
 
-                        console.log(diff);
-
                         if (diff < 2) {
                             clearInterval(this.state.countdown)
                             this.getSession();
